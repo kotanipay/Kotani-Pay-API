@@ -29,7 +29,7 @@ export class BlockchainService {
     return await cusdToken.balanceOf(publicAddress); // In cUSD
   };
 
-  createMnemonic = async () => await bip39.generateMnemonic(256);
+  createMnemonic = async () => await bip39.generateMnemonic(256)
 
   async createAccountInfo(
     phone: string,

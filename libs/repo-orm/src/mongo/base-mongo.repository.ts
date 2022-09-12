@@ -40,6 +40,9 @@ export class BaseMongoRepository {
 
   getUserDetails = async (userId) => await this.userModel.findById(userId);
 
+  getAccountAddress = async (userId) =>
+    await this.accountModel.findOne({ uid: userId });
+
   checkisUserKyced = async (userId) =>
     await this.kycModel.exists({ _id: userId });
 
@@ -57,15 +60,18 @@ export class BaseMongoRepository {
     };
   };
 
-  createAccount = async (accountData) =>
+  createAccount = async (accountData) => {
+    console.log('------>accountdata ID: ', accountData.uid);
     await this.accountModel.create(accountData);
+  };
 
   setUserKyc = async (kycData) => await this.kycModel.create(kycData);
 
   getAccountInfo = async (userId): Promise<AccountInterface> => {
     const result = await this.accountModel.findById(userId).exec();
     return {
-      id: result._id,
+      // id: result._id,
+      uid: result.uid,
       seedKey: result.seedKey,
       publicAddress: result.publicAddress,
     };
@@ -74,24 +80,41 @@ export class BaseMongoRepository {
   //this is for geting all users not accounts
   getAllUsers = async () => await this.userModel.count();
 
-  getAllUserDetails = async ()=> {
-    const projection = {id:1, name:1, email:1, phoneNumber:1, createdAt:1}
-    return await this.userModel.find({},projection);
-  }
+  getAllUserDetails = async () => {
+    const projection = {
+      id: 1,
+      name: 1,
+      email: 1,
+      phoneNumber: 1,
+      createdAt: 1,
+    };
+    return await this.userModel.find({}, projection);
+  };
 
-  getRecentAddedUser = async ()=> {
-    const projection = {id:1, name:1, email:1, phoneNumber:1, createdAt:1}
-    return await this.userModel.find({},projection).sort({$natural:-1}).limit(10)
-  }
+  getRecentAddedUser = async () => {
+    const projection = {
+      id: 1,
+      name: 1,
+      email: 1,
+      phoneNumber: 1,
+      createdAt: 1,
+    };
+    return await this.userModel
+      .find({}, projection)
+      .sort({ $natural: -1 })
+      .limit(10);
+  };
 
-  getUserAnalytics = async () => {return await this.userModel.aggregate([
-    {$group:{
-      _id:{$substr:["$createdAt",5,2]},
-      numberOfUsers:{$sum:1}
-    }}
-
-  ])}
-  
+  getUserAnalytics = async () => {
+    return await this.userModel.aggregate([
+      {
+        $group: {
+          _id: { $substr: ['$createdAt', 5, 2] },
+          numberOfUsers: { $sum: 1 },
+        },
+      },
+    ]);
+  };
 
   getAllTransactions = async () => await this.transactionsModel;
 }

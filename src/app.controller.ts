@@ -25,9 +25,14 @@ import {
 } from '@nestjs/swagger';
 import { Roles } from '@kotanicore/auth/rbac/roles.decorator';
 import { Role } from '@kotanicore/auth/rbac/enums/role.enum';
+import { HttpService } from '@nestjs/axios';
+import { ApiResponse, ITransaction } from '@kotanicore/repository/interface/transaction';
+import { Observable } from 'rxjs';
+import { AxiosResponse } from 'axios';
 
 @Controller()
 export class AppController {
+  tx = [];
   constructor(
     private readonly authService: AuthService,
     private readonly appService: AppService,
@@ -102,49 +107,66 @@ export class AppController {
     return await this.coreService.getUser(body.id);
   }
 
-  @Get('transactions')
+  @Post('transactions')
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getTransactions() {
-    const transactions = await this.coreService.listTransactions();
+  async getTransactions(@Body() body: GetUserDto): Promise<any> {
+    const address = await this.coreService.fetchWallet(body.id);
+    // make post request to fetch transaction
+     
+
+    // const txObservable = transactions.subscribe((res) => {
+    //   return res;
+    //   console.log('----->', res);
+    // });
+
+    // console.log('----->', transactions);
+
+    // const getTrans = transactions.subscribe((transaction) => {
+    //   console.log(transaction);
+    //   // this.tx = transaction.map()
+    // });
+
     return {
-      transactions: transactions,
+      transactions: this.appService.findAll(
+        '0xf9436398a70146f58f535c6b93d6845d1afb390b',
+      ),
     };
   }
   @Get('all-user-details')
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getAllUserDetails(){
+  async getAllUserDetails() {
     const users = await this.coreService.getAllUsers();
+    // TODO mount wallet public address on the response
     return {
       users: users,
-    }
+    };
   }
   @Get('recent-users')
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getRecentUsers(){
+  async getRecentUsers() {
     const users = await this.coreService.getRecentAddUserList();
     return {
       users: users,
-    }
+    };
   }
 
   @Get('users-analytics')
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getUserAnalyticsData(){
+  async getUserAnalyticsData() {
     const usersData = await this.coreService.getUsersAnalytics();
     return {
       usersData: usersData,
-    }
+    };
   }
-
-
-  
-
+}
+function findAll() {
+  throw new Error('Function not implemented.');
 }

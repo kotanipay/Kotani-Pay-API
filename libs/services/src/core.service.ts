@@ -4,7 +4,6 @@ import { CreateUserDto } from '@kotanicore/repository/dtos/createUser.dto';
 import { SetKycDto } from '@kotanicore/repository/dtos/setKyc.dto';
 import { RepositoryService } from '@kotanicore/repository';
 
-
 @Injectable()
 export class CoreService {
   constructor(
@@ -34,7 +33,7 @@ export class CoreService {
       );
 
       await this.repo.createAccount({
-        id: userId,
+        uid: userId,
         seedKey: account.seedKey,
         publicAddress: account.publicAddress,
       });
@@ -86,31 +85,39 @@ export class CoreService {
       throw new Error(error);
     }
   }
-  async getAllUsers(){
-    try{
+  async getAllUsers() {
+    try {
       return await this.repo.getAllUserDetails();
-    }
-    catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getRecentAddUserList(){
-    try{
+  async getRecentAddUserList() {
+    try {
       return await this.repo.getRecentAddedUser();
-    }
-    catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getUsersAnalytics(){
-    try{
+  async getUsersAnalytics() {
+    try {
       return await this.repo.getUserAnalytics();
-    }catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   }
+
+  async fetchWallet(id: string) {
+    try {
+      return await this.repo.getAccountAddress(id);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+
 
   async listTransactions() {
     try {

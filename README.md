@@ -1,6 +1,7 @@
 <p align="center">
   <a href="https://kotanipay.com/" target="blank"><img src="https://2655951489-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FhonoqUXGYYiDPsMOyqhQ%2Fuploads%2FZpMntLQe2ILzTIoxukWl%2FKotani%20Pay%20logo_Light%20background.png?alt=media&token=a88be60e-52db-49a2-aaf5-5f6925d147c1" width="320" alt="Nest Logo" /></a>
 </p>
+
 Kotani Pay API
 ==============
 
@@ -35,21 +36,22 @@ Our documentation has more complete information on how to set up a development e
 
 ## :memo: Legal
 
-MIT License, © 2020-2021 Kotani Labs
+MIT License, © 2020-2022 Kotani Labs
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [_From choosealicense.com_](https://choosealicense.com/licenses/mit/):
+
 > A short and simple permissive license with conditions only requiring preservation of copyright and license notices.
 > Licensed works, modifications, and larger works may be distributed under different terms and without source code.
 >
 > * **Permissions**:
-    >     * Commercial use
+>     * Commercial use
 >     * Distribution
 >     * Modification
 >     * Private use
 > * **Conditions**:
-    >     * License and copyright notice
+>     * License and copyright notice
 > * **Limitations**:
-    > 	  * Liability
-             > 	  * Warranty
+> 	  * Liability
+> 	  * Warranty

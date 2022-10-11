@@ -5,7 +5,7 @@ export const TransactionSchema = new Schema({
   date: Date,
   amount: Number,
   txHash: String,
-  description:String,
-  status:String,
-  type:String,
+  description: String,
+  status: String,
+  type: String,
 });

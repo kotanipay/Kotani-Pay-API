@@ -24,6 +24,8 @@
     "kotanicore/core/(.*)": "<rootDir>/../libs/core/src/$1",
     "kotanicore/core": "<rootDir>/../libs/core/src",
     "@kotanicore/services/(.*)": "<rootDir>/../libs/services/src/$1",
-    "@kotanicore/services": "<rootDir>/../libs/services/src"
+    "@kotanicore/services": "<rootDir>/../libs/services/src",
+    "@kotanicore/integrations/(.*)": "<rootDir>/../libs/integrations/src/$1",
+    "@kotanicore/integrations": "<rootDir>/../libs/integrations/src"
   }
 }

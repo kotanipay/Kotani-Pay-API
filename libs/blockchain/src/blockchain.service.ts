@@ -42,4 +42,8 @@ export class BlockchainService {
       publicAddress: publicAddress,
     };
   }
+
+  async getPrivateKey(seedkey: string, IV: string) {
+    return '';
+  }
 }

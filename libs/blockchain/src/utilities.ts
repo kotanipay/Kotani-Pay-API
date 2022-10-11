@@ -59,3 +59,4 @@ export const createcypher = async (text, userMSISDN, iv) => {
   encrypted += cipher.final('hex');
   return encrypted;
 };
+

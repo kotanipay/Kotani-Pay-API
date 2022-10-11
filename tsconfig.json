@@ -6,7 +6,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
@@ -54,6 +53,12 @@
       ],
       "@kotanicore/services/*": [
         "libs/services/src/*"
+      ],
+      "@kotanicore/integrations": [
+        "libs/integrations/src"
+      ],
+      "@kotanicore/integrations/*": [
+        "libs/integrations/src/*"
       ]
     }
   }

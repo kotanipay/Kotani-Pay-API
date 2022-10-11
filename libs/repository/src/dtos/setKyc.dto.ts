@@ -2,7 +2,6 @@ import { IsDate, IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
 import { DocumentTypes } from '@kotanicore/services/interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 
-
 export class SetKycDto {
   @ApiProperty({
     type: String,

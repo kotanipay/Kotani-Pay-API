@@ -23,8 +23,7 @@ import {
   ApiNotFoundResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { Roles } from '@kotanicore/auth/rbac/roles.decorator';
-import { Role } from '@kotanicore/auth/rbac/enums/role.enum';
+import { GetMoolaLoan } from '@kotanicore/repository/dtos/getMoolaLoan';
 
 @Controller()
 export class AppController {
@@ -47,19 +46,20 @@ export class AppController {
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   async login(@Body() data: LoginDto) {
     const user = await this.authService.validateUser(data.phone, data.password);
+    // console.log({ user });
 
     if (user) {
       return await this.authService.login(user, '');
     } else {
       throw new HttpException('Wrong Credentials', HttpStatus.UNAUTHORIZED);
     }
+    // return;
   }
 
   @Post('create')
   @ApiCreatedResponse({ description: 'Created Succesfully' })
   @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
-  @Roles(Role.Admin)
   async createUser(@Body() createUser: CreateUserDto) {
     return await this.coreService.createUser(createUser);
   }
@@ -94,7 +94,7 @@ export class AppController {
   }
 
   // send ObjectId
-  @Post('user')
+  @Get('user')
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
@@ -112,39 +112,13 @@ export class AppController {
       transactions: transactions,
     };
   }
-  @Get('all-user-details')
+
+  @Get('cinchLoan')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'The resource was returned successfully' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getAllUserDetails(){
-    const users = await this.coreService.getAllUsers();
-    return {
-      users: users,
-    }
+  async getLoan(@Body() body: GetMoolaLoan) {
+    return await this.coreService.processMoolaLoan(body.id, body.amount);
   }
-  @Get('recent-users')
-  @ApiOkResponse({ description: 'The resource was returned successfully' })
-  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
-  @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getRecentUsers(){
-    const users = await this.coreService.getRecentAddUserList();
-    return {
-      users: users,
-    }
-  }
-
-  @Get('users-analytics')
-  @ApiOkResponse({ description: 'The resource was returned successfully' })
-  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
-  @ApiNotFoundResponse({ description: 'Resource not found' })
-  async getUserAnalyticsData(){
-    const usersData = await this.coreService.getUsersAnalytics();
-    return {
-      usersData: usersData,
-    }
-  }
-
-
-  
-
 }

@@ -44,6 +44,7 @@
     "ethers": "^5.7.0",
     "express-session": "^1.17.3",
     "firebase-admin": "^10.2.0",
+    "jwt-decode": "^3.1.2",
     "mongoose": "^6.3.5",
     "openid-client": "^5.1.6",
     "passport": "^0.6.0",

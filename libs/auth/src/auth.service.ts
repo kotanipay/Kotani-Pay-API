@@ -34,7 +34,8 @@ export class AuthService {
 
     try {
       const result = {
-        token: this.jwtService.sign(payload),
+        token: this.jwtService.sign(payload, { expiresIn: '300' }),
+        expiresIn: ' 300 seconds ',
       };
       return result;
     } catch (err) {
